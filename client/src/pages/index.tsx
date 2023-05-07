@@ -1,3 +1,4 @@
+import { LOGIN_URL } from "@/constants/url";
 import todoLottie from "@/styles/todo_lottie.json";
 import styled from "@emotion/styled";
 import { useRouter } from "next/router";
@@ -15,7 +16,7 @@ export default function Home() {
     <StyledMainPage>
       <StyledLogo>TODO</StyledLogo>
       <StyledButtonWrapper>
-        <button onClick={() => router.push("/login")}>START</button>
+        <button onClick={() => router.push(LOGIN_URL)}>START</button>
       </StyledButtonWrapper>
       <Lottie options={lottieOptions} />
     </StyledMainPage>

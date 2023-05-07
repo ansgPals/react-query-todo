@@ -6,8 +6,8 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { emailPasswordSchema } from "@/types/schema";
 import { useRouter } from "next/router";
-
-const LOGIN_API_URL = "/users/login";
+import { LOGIN_API_URL } from "@/constants/endpoint";
+import { TODO_URL } from "@/constants/url";
 
 export default function Login() {
   const { register, handleSubmit, formState } = useForm({
@@ -33,23 +33,24 @@ export default function Login() {
     );
   };
 
-  const emailError: string = formState.errors.email?.message?.toString() ?? "";
-  const passwordError: string =
+  const emailErrorMessage: string =
+    formState.errors.email?.message?.toString() ?? "";
+  const passwordErrorMessage: string =
     formState.errors.password?.message?.toString() ?? "";
 
   useEffect(() => {
     const token = Cookies.get(TOKEN);
     if (!!token) {
-      router.push("/todo");
+      router.push(TODO_URL);
     }
   }, []);
 
   return (
     <form onSubmit={handleSubmit(onClickSubmit)}>
       <input {...register("email")}></input>
-      <p>{emailError || ""}</p>
+      <p>{emailErrorMessage || ""}</p>
       <input {...register("password")}></input>
-      <p>{passwordError || ""}</p>
+      <p>{passwordErrorMessage || ""}</p>
       <button disabled={!formState.isValid}>로그인</button>
       <p>
         계정이 없으십니까? <a href="/sign-up">회원가입</a>

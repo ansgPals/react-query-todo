@@ -1,21 +1,10 @@
 import { useReactQueryPost } from "@/api/http";
-import axios from "@/api/middlewares";
-import { TOKEN } from "@/constants/common";
+import { SIGN_UP_API_URL } from "@/constants/endpoint";
+import { LOGIN_URL } from "@/constants/url";
 import { emailPasswordSchema } from "@/types/schema";
 import { yupResolver } from "@hookform/resolvers/yup";
-
-import { useMutation } from "@tanstack/react-query";
-import { AxiosError } from "axios";
-import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
-
-interface SignUpData {
-  message: string;
-  token: string;
-}
-
-export const SIGN_UP_API_URL = "/users/create";
 
 export default function SignUp() {
   const { register, handleSubmit, formState } = useForm({
@@ -33,7 +22,7 @@ export default function SignUp() {
       {
         onSuccess: () => {
           alert("가입되었습니다!로그인해주세용");
-          router.push("/login");
+          router.push(LOGIN_URL);
         },
         onError: (error) => {
           !!error.response && alert(error.response);
