@@ -1,0 +1,16 @@
+{
+  "name": "react-query-boilerplate",
+  "version": "1.0.0",
+  "description": "React Query Boilerplate",
+  "main": "index.js",
+  "scripts": {
+    "start": "(cd client && yarn dev) & (cd server && yarn start)",
+    "install": "(cd server && yarn install) & (cd client && yarn install)",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "yup": "^1.1.1"
+  }
+}
