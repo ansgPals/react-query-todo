@@ -8,8 +8,6 @@ export default function TodoList() {
     url: TODO_LIST_API_URL,
   });
 
-  console.log(data);
-
   return isLoading ? (
     <> 로딩중 </>
   ) : (
