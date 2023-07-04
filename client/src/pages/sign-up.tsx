@@ -1,32 +1,34 @@
 import { useReactQueryPost } from "@/api/http";
 import { SIGN_UP_API_URL } from "@/constants/endpoint";
 import { LOGIN_URL } from "@/constants/url";
-import { IFormValues } from "@/types";
-import { emailPasswordSchema } from "@/types/schema";
+import { ILoginFormValues } from "@/types";
+import { signUpSchema } from "@/types/schema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
+import { LoginWrapper as SignUpWrapper } from "./login";
+import { useToast } from "@/hooks/commons";
 
 export default function SignUp() {
   const { register, handleSubmit, formState } = useForm({
-    resolver: yupResolver(emailPasswordSchema),
+    resolver: yupResolver(signUpSchema),
     mode: "onChange",
   });
   const router = useRouter();
   const { mutation } = useReactQueryPost({ url: SIGN_UP_API_URL });
-
-  const onClickSubmit = (data: IFormValues) => {
+  const { handleToast } = useToast();
+  const onClickSubmit = (data: ILoginFormValues) => {
     const { email, password } = data;
 
     mutation(
       { email, password },
       {
         onSuccess: () => {
-          alert("가입되었습니다!로그인해주세용");
+          handleToast("가입되었습니다!로그인해주세용");
           router.push(LOGIN_URL);
         },
         onError: (error) => {
-          !!error.response && alert(error.response);
+          handleToast(error.data.details, "error");
         },
       }
     );
@@ -35,14 +37,39 @@ export default function SignUp() {
   const emailError: string = formState.errors.email?.message?.toString() ?? "";
   const passwordError: string =
     formState.errors.password?.message?.toString() ?? "";
-
+  const passwordCheckError: string =
+    formState.errors.passwordCheck?.message?.toString() ?? "";
   return (
-    <form onSubmit={handleSubmit(onClickSubmit)}>
-      <input {...register("email")}></input>
-      <p>{emailError || ""}</p>
-      <input {...register("password")}></input>
-      <p>{passwordError || ""}</p>
-      <button disabled={!formState.isValid}>회원가입</button>
-    </form>
+    <SignUpWrapper>
+      <h1>SIGN-UP</h1>
+      <form onSubmit={handleSubmit(onClickSubmit)}>
+        <div>
+          <label>ID</label>
+          <div>
+            <input placeholder="이메일" {...register("email")}></input>
+            <p>{emailError || ""}</p>
+          </div>
+        </div>
+        <div>
+          <label>PW</label>
+          <div>
+            <input placeholder="비밀번호" {...register("password")}></input>
+            <p>{passwordError || ""}</p>
+          </div>
+        </div>
+        <div>
+          <label>PW 확인</label>
+          <div>
+            <input
+              placeholder="비밀번호확인"
+              {...register("passwordCheck")}
+            ></input>
+            <p>{passwordCheckError || ""}</p>
+          </div>
+        </div>
+
+        <button disabled={!formState.isValid}>회원가입</button>
+      </form>
+    </SignUpWrapper>
   );
 }

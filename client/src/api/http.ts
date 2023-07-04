@@ -66,18 +66,14 @@ export const useReactQueryMutation = (method: MutationMethodType) => (
 ) => {
   const { url, onError, onSuccess } = params
 
-  const { mutate, isLoading, error } = useMutation<
-    any,
-    AxiosError<{ details: string }>,
-    any,
-    any
-  >({
+  const { mutate, isLoading, error } = useMutation<any, any, any, any>({
     mutationFn: (variables: any) => {
       return axios[method](url, variables)
     },
     onSuccess,
     onError,
   })
+
   return {
     mutation: mutate,
     isLoading,

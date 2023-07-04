@@ -14,7 +14,7 @@ axios.interceptors.request.use(
 
   (conf) => {
     conf.headers = conf.headers ?? {}
-    const token = Cookies.get(TOKEN)
+    const token = Cookies.get(TOKEN) ?? ''
     // 로컬스토리지에서 token 가져옴
     conf.headers['Content-Type'] = 'application/json; charset=utf-8'
     // 서버에게 json 형식을 사용할거라고 알려줌
@@ -28,6 +28,7 @@ axios.interceptors.request.use(
 
   (error) => {
     // 요청실패시
+
     Promise.reject(error)
   },
 )
@@ -40,7 +41,7 @@ axios.interceptors.response.use(
   },
   (error) => {
     // 토큰만료관련 작성될 로직 여기
-    Promise.reject(error)
+    return Promise.reject(error.response)
   },
 )
 
