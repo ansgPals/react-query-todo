@@ -7,7 +7,7 @@ import _ from "lodash";
 import { useRouter } from "next/router";
 
 export default function TodoList() {
-  const { data, refetch } = useReactQuery({
+  const { data } = useReactQuery({
     url: TODO_API_URL,
   });
   const router = useRouter();
@@ -20,7 +20,7 @@ export default function TodoList() {
     <TodoListWrapper>
       {!!data?.length &&
         _.map(data, (item, index) => (
-          <TodoItem key={item.id + index} refetch={refetch} data={item} />
+          <TodoItem key={item.id + index} data={item} />
         ))}
       <PlusItem onClick={handleMoveToCreate}>+</PlusItem>
     </TodoListWrapper>

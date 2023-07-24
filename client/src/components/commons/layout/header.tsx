@@ -14,8 +14,7 @@ export default function LayoutHeader() {
   const token = Cookies.get(TOKEN);
 
   useEffect(() => {
-    if (!!token) handleIsLogin(true);
-    if (!token) handleIsLogin(false);
+    !!token ? handleIsLogin(true) : handleIsLogin(false);
   });
 
   return (
@@ -25,7 +24,7 @@ export default function LayoutHeader() {
         {isLogin ? (
           <button onClick={onClickButton("/logout")}>로그아웃</button>
         ) : (
-          <a onClick={onClickButton("/login")}>로그인</a>
+          <button onClick={onClickButton("/login")}>로그인</button>
         )}
       </div>
     </Wrapper>

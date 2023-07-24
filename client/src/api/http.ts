@@ -15,11 +15,11 @@ const MutationMethod = {
 } as const
 
 export const useReactQuery = (params: IUseReactQueryParams) => {
-  const { url, renderLater, onError } = params
+  const { url, disable, onError } = params
 
   const queryClient = useQueryClient()
   const uniqueKey = url.split('/').slice(1) ?? ['']
-  const [renderLaterState, setRenderLater] = useState(renderLater)
+  const [disableState, setDisableLater] = useState(disable)
 
   const { data, isFetching, error } = useQuery<
     any,
@@ -34,7 +34,7 @@ export const useReactQuery = (params: IUseReactQueryParams) => {
     {
       onError,
       // 에러시 하고싶은거있으면 넣으셈
-      enabled: !renderLaterState,
+      enabled: !disableState,
       // 비동기로 query 하고싶을까바 만듦
     },
   )
@@ -44,14 +44,14 @@ export const useReactQuery = (params: IUseReactQueryParams) => {
   }
   // 데이터 리패치기능 (수정삭제후 사용하셔유)
 
-  const handleRenderLater = () => {
-    setRenderLater(renderLater)
+  const handleDisable = () => {
+    setDisableLater(disable)
   }
 
   useEffect(() => {
-    handleRenderLater()
-    // renderLater값 바뀌면 바로 리랜더링되면서 useQuery요청 부름
-  }, [renderLater])
+    handleDisable()
+    // disable 바뀌면 바로 리랜더링되면서 useQuery요청 부름
+  }, [disable])
 
   return {
     data,

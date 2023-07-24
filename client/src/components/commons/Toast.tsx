@@ -3,9 +3,9 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export default function Toast(props: {
-  toastValue: { isOpen: boolean; type?: string; text: string };
+  toastOption: { isOpen: boolean; type?: string; text: string };
 }) {
-  const { isOpen, type, text } = props.toastValue;
+  const { isOpen, type, text } = props.toastOption;
   return isOpen ? <ToastComponent type={type}>{text}</ToastComponent> : <></>;
 }
 

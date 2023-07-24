@@ -8,7 +8,7 @@ export default function Edit() {
   const { id } = router.query;
   const { data } = useReactQuery({
     url: `${TODO_API_URL}/${id}`,
-    renderLater: !id,
+    disable: !id,
   });
   return <Create data={data} />;
 }

@@ -26,7 +26,7 @@ export default function Create(props: {
     url: `${TODO_API_URL}/${data?.id}`,
   });
   const inputValue = watch();
-  const [isNoChanged, handleIsNoChanged] = useState(true);
+  const [isNotChanged, handleIsNotChanged] = useState(true);
 
   const onClickSubmit = (data: ICreateFormValues) => {
     const { title, content } = data;
@@ -50,8 +50,8 @@ export default function Create(props: {
     formState.errors.content?.message?.toString() ?? "";
 
   const handleCancel = async () => {
-    const filedValue = !inputValue.content && !inputValue.title;
-    if (isEdit ? isNoChanged : filedValue) {
+    const emptiedValue = !inputValue.content && !inputValue.title;
+    if (isEdit ? isNotChanged : emptiedValue) {
       router.push(TODO_URL);
     } else {
       const result = await confirm(
@@ -61,7 +61,7 @@ export default function Create(props: {
     }
   };
 
-  const buttonDisable = !formState.isValid || isNoChanged;
+  const isButtonDisabled = !formState.isValid || isNotChanged;
 
   useEffect(() => {
     if (data) {
@@ -71,9 +71,9 @@ export default function Create(props: {
   }, [data]);
 
   useEffect(() => {
-    const isNoChanged =
+    const isNotChanged =
       inputValue.content === data?.content && inputValue.title === data?.title;
-    handleIsNoChanged(isNoChanged);
+    handleIsNotChanged(isNotChanged);
   }, [inputValue]);
   return (
     <CreateWrapper>
@@ -92,7 +92,7 @@ export default function Create(props: {
           <textarea placeholder="내용" {...register("content")}></textarea>
           <p>{contentError || ""}</p>
         </div>
-        <button disabled={buttonDisable}>{isEdit ? "수정" : "등록"}</button>
+        <button disabled={isButtonDisabled}>{isEdit ? "수정" : "등록"}</button>
       </form>
     </CreateWrapper>
   );

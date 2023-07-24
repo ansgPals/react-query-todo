@@ -1,4 +1,4 @@
-import { useReactQueryDelete } from "@/api/http";
+import { useReactQuery, useReactQueryDelete } from "@/api/http";
 import { TODO_API_URL } from "@/constants/endpoint";
 import { TODO_URL } from "@/constants/url";
 import { useToast } from "@/hooks/commons";
@@ -7,10 +7,12 @@ import { useRouter } from "next/router";
 import { MouseEvent } from "react";
 
 export default function TodoItem(props: {
-  refetch: () => void;
   data: { title: string; content: string; id: string };
 }) {
-  const { data, refetch } = props;
+  const { refetch } = useReactQuery({
+    url: TODO_API_URL,
+  });
+  const { data } = props;
   const router = useRouter();
   const { title, content, id } = data;
 
@@ -20,7 +22,7 @@ export default function TodoItem(props: {
   const { handleToast } = useToast();
   const { mutation } = useReactQueryDelete({ url: `${TODO_API_URL}/${id}` });
 
-  const onClickDelete = (e: MouseEvent<HTMLButtonElement>) => {
+  const handleTodoItemDelete = (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     mutation(
       { id },
@@ -39,7 +41,7 @@ export default function TodoItem(props: {
   return (
     <TodoItemWrapper onClick={handleMove}>
       <h1>
-        <button onClick={onClickDelete}>x</button>
+        <button onClick={handleTodoItemDelete}>x</button>
       </h1>
       <div>
         <h2>{title}</h2>

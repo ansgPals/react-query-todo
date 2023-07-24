@@ -10,15 +10,15 @@ export default function Layout(props: { children: ReactNode }) {
   const router = useRouter();
   const isLogin = router.asPath === "/login" || router.asPath === "/sign-up";
   const isMainPage = router.asPath === "/";
-  const [toastValue, handleToastState] = useRecoilState(toastRecoilState);
+  const [toastOption, handleToastState] = useRecoilState(toastRecoilState);
   useEffect(() => {
     setTimeout(() => handleToastState(defaultToast), 800);
-  }, [toastValue]);
+  }, [toastOption]);
   return (
     <>
       {!isMainPage && <LayoutHeader />}
       <Body isMainPage={isMainPage}>
-        {props.children} <Toast toastValue={toastValue} />
+        {props.children} <Toast toastOption={toastOption} />
       </Body>
     </>
   );
