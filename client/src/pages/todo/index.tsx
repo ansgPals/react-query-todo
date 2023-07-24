@@ -2,11 +2,13 @@ import { useReactQuery } from "@/api/http";
 import TodoItem from "@/components/TodoItem";
 
 import { TODO_API_URL } from "@/constants/endpoint";
+import { useAuth } from "@/hooks/commons";
 import styled from "@emotion/styled";
 import _ from "lodash";
 import { useRouter } from "next/router";
 
 export default function TodoList() {
+  useAuth();
   const { data } = useReactQuery({
     url: TODO_API_URL,
   });

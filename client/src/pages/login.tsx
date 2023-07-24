@@ -67,7 +67,11 @@ export default function Login() {
         <div>
           <label>PW</label>
           <div>
-            <input placeholder="비밀번호" {...register("password")}></input>
+            <input
+              type="password"
+              placeholder="비밀번호"
+              {...register("password")}
+            ></input>
             <p>{passwordErrorMessage || ""}</p>
           </div>
         </div>

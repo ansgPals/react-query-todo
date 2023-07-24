@@ -10,3 +10,8 @@ export const toastRecoilState = atom<{
   key: "toastState",
   default: defaultToast,
 });
+
+export const isLoginRecoilState = atom<boolean>({
+  key: "authState",
+  default: false,
+});

@@ -1,13 +1,15 @@
 import { TOKEN } from "@/constants/common";
+import { isLoginRecoilState } from "@/store/recoil";
 import styled from "@emotion/styled";
 import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { useRecoilState } from "recoil";
 
 export default function LayoutHeader() {
   const router = useRouter();
   const [isLogin, handleIsLogin] = useState(false);
-
+  const [, handleRecoilLoginState] = useRecoilState(isLoginRecoilState);
   const onClickButton = (page: string) => () => {
     router.push(`${page}`);
   };
@@ -16,6 +18,10 @@ export default function LayoutHeader() {
   useEffect(() => {
     !!token ? handleIsLogin(true) : handleIsLogin(false);
   });
+
+  useEffect(() => {
+    handleRecoilLoginState(isLogin);
+  }, [isLogin]);
 
   return (
     <Wrapper>
