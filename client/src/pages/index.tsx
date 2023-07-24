@@ -24,8 +24,10 @@ export default function Home() {
 }
 
 const StyledMainPage = styled.div`
-  background-color: ${(props) => props.theme.colors.line_default};
+  background-color: #161725;
   max-width: 100vw;
+  min-width: 100vw;
+  min-height: 100vh;
   max-height: 100vh;
   overflow: hidden;
 `;
@@ -49,7 +51,7 @@ const StyledButtonWrapper = styled.div`
   z-index: 50;
 
   button {
-    background-color: ${(props) => props.theme.colors.bg_mild_blue};
+    background-color: orange;
     font-size: 18px;
     font-weight: 700;
     color: white;
