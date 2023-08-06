@@ -8,12 +8,14 @@ import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { LoginWrapper as SignUpWrapper } from "./login";
 import { useToast } from "@/hooks/commons";
+import { useState } from "react";
 
 export default function SignUp() {
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(signUpSchema),
     mode: "onChange",
   });
+  const [isPasswordMode, setPasswordMode] = useState(true);
   const router = useRouter();
   const { mutation } = useReactQueryPost({ url: SIGN_UP_API_URL });
   const { handleToast } = useToast();
@@ -34,6 +36,10 @@ export default function SignUp() {
     );
   };
 
+  const handlePasswordMode = () => {
+    setPasswordMode((prev) => !prev);
+  };
+
   const emailError: string = formState.errors.email?.message?.toString() ?? "";
   const passwordError: string =
     formState.errors.password?.message?.toString() ?? "";
@@ -51,9 +57,15 @@ export default function SignUp() {
           </div>
         </div>
         <div>
-          <label>PW</label>
+          <label>
+            PW <p onClick={handlePasswordMode}>view password</p>
+          </label>
           <div>
-            <input placeholder="비밀번호" {...register("password")}></input>
+            <input
+              placeholder="비밀번호"
+              type={isPasswordMode ? "password" : "text"}
+              {...register("password")}
+            ></input>
             <p>{passwordError || ""}</p>
           </div>
         </div>
@@ -63,6 +75,7 @@ export default function SignUp() {
             <input
               placeholder="비밀번호확인"
               {...register("passwordCheck")}
+              type={isPasswordMode ? "password" : "text"}
             ></input>
             <p>{passwordCheckError || ""}</p>
           </div>

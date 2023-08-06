@@ -1,8 +1,8 @@
-import { Interpolation, Theme, css } from '@emotion/react'
+import { css } from "@emotion/react";
 
-import emotionReset from 'emotion-reset'
+import emotionReset from "emotion-reset";
 
-import { CustomThemeType } from '@/styles/theme'
+import { CustomThemeType } from "@/styles/theme";
 
 export const globalStyles = (props: CustomThemeType) => css`
   ${emotionReset};
@@ -19,5 +19,5 @@ export const globalStyles = (props: CustomThemeType) => css`
       font-size: 7px;
     }
   }
-`
-export default globalStyles
+`;
+export default globalStyles;

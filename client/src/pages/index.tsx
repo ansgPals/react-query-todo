@@ -24,7 +24,7 @@ export default function Home() {
 }
 
 const StyledMainPage = styled.div`
-  background-color: #161725;
+  background-color: ${(props) => props.theme.colors.main_bg};
   max-width: 100vw;
   min-width: 100vw;
   min-height: 100vh;
@@ -51,7 +51,7 @@ const StyledButtonWrapper = styled.div`
   z-index: 50;
 
   button {
-    background-color: orange;
+    background-color: ${(props) => props.theme.colors.main_point_color};
     font-size: 18px;
     font-weight: 700;
     color: white;

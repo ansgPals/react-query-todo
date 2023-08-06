@@ -13,7 +13,9 @@ const ToastComponent = styled.div<{ type?: string }>`
   padding: 15px;
   min-width: 280px;
   top: 45%;
-  border: 2px solid ${(props) => (props.type === "error" ? "red" : "orange")};
+  border: 2px solid
+    ${(props) =>
+      props.type === "error" ? "red" : props.theme.colors.main_point_color};
   background-color: ${(props) =>
     props.type === "error"
       ? "rgba(255, 185, 129,0.9)"

@@ -8,7 +8,7 @@ import Toast from "../Toast";
 
 export default function Layout(props: { children: ReactNode }) {
   const router = useRouter();
-  const isLogin = router.asPath === "/login" || router.asPath === "/sign-up";
+
   const isMainPage = router.asPath === "/";
   const [toastOption, handleToastState] = useRecoilState(toastRecoilState);
   useEffect(() => {
@@ -29,5 +29,5 @@ const Body = styled.div<{ isMainPage: boolean }>`
   min-height: calc(100vh - ${(props) => (props.isMainPage ? "0" : "60px")});
   display: flex;
   justify-content: center;
-  background-color: #161725;
+  background-color: ${(props) => props.theme.colors.main_bg};
 `;
