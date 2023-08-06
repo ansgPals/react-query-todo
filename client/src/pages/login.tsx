@@ -9,14 +9,14 @@ import { TODO_URL } from "@/constants/url";
 import { ILoginFormValues, ILoginData } from "@/types";
 import styled from "@emotion/styled";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 import Cookies from "js-cookie";
 import { useToast } from "@/hooks/commons";
 
 export default function Login() {
   const router = useRouter();
-
+  const [isPasswordMode, setPasswordMode] = useState(true);
   const { register, handleSubmit, formState } = useForm({
     resolver: yupResolver(loginSchema),
     mode: "onChange",
@@ -42,6 +42,10 @@ export default function Login() {
     );
   };
 
+  const handlePasswordMode = () => {
+    setPasswordMode((prev) => !prev);
+  };
+
   const emailErrorMessage: string =
     formState.errors.email?.message?.toString() ?? "";
   const passwordErrorMessage: string =
@@ -65,9 +69,15 @@ export default function Login() {
           </div>
         </div>
         <div>
-          <label>PW</label>
+          <label>
+            PW<p onClick={handlePasswordMode}>view password</p>
+          </label>
           <div>
-            <input placeholder="비밀번호" {...register("password")}></input>
+            <input
+              placeholder="비밀번호"
+              type={isPasswordMode ? "password" : "text"}
+              {...register("password")}
+            ></input>
             <p>{passwordErrorMessage || ""}</p>
           </div>
         </div>
@@ -89,7 +99,7 @@ export const LoginWrapper = styled.div`
   padding: 50px;
   width: 800px;
   background-color: white;
-  border-top: 10px solid orange;
+  border-top: 10px solid ${(props) => props.theme.colors.main_point_color};
   height: fit-content;
   margin: 5% 0 0 0;
   > header {
@@ -132,19 +142,20 @@ export const LoginWrapper = styled.div`
       border-radius: 1rem;
       font-weight: 700;
       border: none;
-      color: #e9ab41;
-      background-color: #161725;
+      color: ${(props) => props.theme.colors.main_point_color};
+      background-color: ${(props) => props.theme.colors.main_bg};
       margin: 10px 0;
       cursor: pointer;
       :hover {
-        color: #161725;
-        background-color: #e9ab41;
+        color: ${(props) => props.theme.colors.main_bg};
+        background-color: ${(props) => props.theme.colors.main_point_color};
       }
       :disabled {
-        background-color: gray;
+        background-color: #646464;
+        color: white;
         cursor: unset;
         :hover {
-          color: #e9ab41;
+          color: ${(props) => props.theme.colors.main_point_color};
         }
       }
     }
@@ -155,14 +166,25 @@ export const LoginWrapper = styled.div`
     font-weight: 700;
     width: 100px;
     text-align: center;
+    position: relative;
+    > p {
+      position: absolute;
+      font-size: 10px;
+      bottom: 15px;
+      right: 15px;
+      background-color: ${(props) => props.theme.colors.main_point_color};
+      color: white;
+      padding: 3px;
+      line-height: 13px;
+      cursor: pointer;
+    }
   }
   input {
     font-size: 1.1rem;
-    border: 1px solid #161725;
     width: 500px;
     height: 40px;
     border-radius: 10px;
-    border: 1px solid #161725;
+    border: 1px solid ${(props) => props.theme.colors.main_border};
     padding: 0px 10px;
   }
   textarea {

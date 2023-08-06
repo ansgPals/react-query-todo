@@ -1,9 +1,5 @@
-import Layout from "@/components/commons/layout";
-import globalStyles from "@/styles/global";
-import theme from "@/styles/theme";
-import { Global, ThemeProvider } from "@emotion/react";
+import CustomRender from "@/components/commons/layout/CustomRender";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AppProps } from "next/app";
 import { RecoilRoot } from "recoil";
 
@@ -20,13 +16,9 @@ export default function App({ Component, pageProps }: AppProps) {
     <>
       <QueryClientProvider client={queryClient}>
         <RecoilRoot>
-          <ThemeProvider theme={theme}>
-            <Global styles={globalStyles} />
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
-            <ReactQueryDevtools position={"bottom-right"} />
-          </ThemeProvider>
+          <CustomRender>
+            <Component {...pageProps} />
+          </CustomRender>
         </RecoilRoot>
       </QueryClientProvider>
     </>

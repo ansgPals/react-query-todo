@@ -22,20 +22,22 @@ export default function TodoItem(props: {
   const { handleToast } = useToast();
   const { mutation } = useReactQueryDelete({ url: `${TODO_API_URL}/${id}` });
 
-  const handleTodoItemDelete = (e: MouseEvent<HTMLButtonElement>) => {
+  const handleTodoItemDelete = async (e: MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    mutation(
-      { id },
-      {
-        onSuccess: () => {
-          refetch();
-          handleToast("삭제되었습니다.");
-        },
-        onError: (error) => {
-          handleToast(error.data.details, "error");
-        },
-      }
-    );
+    const result = await confirm("정말 삭제하시겠습니까?");
+    if (result)
+      mutation(
+        { id },
+        {
+          onSuccess: () => {
+            refetch();
+            handleToast("삭제되었습니다.");
+          },
+          onError: (error) => {
+            handleToast(error.data.details, "error");
+          },
+        }
+      );
   };
 
   return (
@@ -54,7 +56,7 @@ export default function TodoItem(props: {
 const TodoItemWrapper = styled.div`
   width: 300px;
   height: 200px;
-  border: 3px solid orange;
+  border: 3px solid ${(props) => props.theme.colors.main_point_color};
   border-top: unset;
   border-radius: 10px;
 
@@ -65,7 +67,7 @@ const TodoItemWrapper = styled.div`
     height: 30px;
     width: 100%;
     border-radius: 10px 10px 0 0;
-    background-color: orange;
+    background-color: ${(props) => props.theme.colors.main_point_color};
     display: flex;
     justify-content: flex-end;
 
