@@ -53,7 +53,11 @@ export default function SignUp() {
         <div>
           <label>PW</label>
           <div>
-            <input placeholder="비밀번호" {...register("password")}></input>
+            <input
+              type="password"
+              placeholder="비밀번호"
+              {...register("password")}
+            ></input>
             <p>{passwordError || ""}</p>
           </div>
         </div>
@@ -61,6 +65,7 @@ export default function SignUp() {
           <label>PW 확인</label>
           <div>
             <input
+              type="password"
               placeholder="비밀번호확인"
               {...register("passwordCheck")}
             ></input>
