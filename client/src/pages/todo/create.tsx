@@ -109,7 +109,7 @@ export const CreateWrapper = styled.div`
   padding: 50px;
   width: 800px;
   background-color: white;
-  border-top: 10px solid orange;
+  border-top: 10px solid ${(props) => props.theme.colors.main_point_color};
   height: fit-content;
   margin: 20px 0 0 0;
   > header {
@@ -151,19 +151,20 @@ export const CreateWrapper = styled.div`
       border-radius: 5px;
       font-weight: 700;
       border: none;
-      color: #e9ab41;
-      background-color: #161725;
+      color: ${(props) => props.theme.colors.main_point_color};
+      background-color: ${(props) => props.theme.colors.main_bg};
       margin: 10px 0;
       cursor: pointer;
       :hover {
-        color: #161725;
-        background-color: #e9ab41;
+        color: ${(props) => props.theme.colors.main_bg};
+        background-color: ${(props) => props.theme.colors.main_point_color};
       }
       :disabled {
-        background-color: gray;
+        background-color: #5b5b5b;
+        color: white;
         cursor: unset;
         :hover {
-          color: #e9ab41;
+          color: ${(props) => props.theme.colors.main_point_color};
         }
       }
     }
@@ -172,7 +173,7 @@ export const CreateWrapper = styled.div`
   input {
     font-size: 16px;
     border: unset;
-    border-bottom: 1px solid #161725;
+    border-bottom: 1px solid ${(props) => props.theme.colors.main_border};
     width: 600px;
     height: 40px;
     padding: 0px 10px;

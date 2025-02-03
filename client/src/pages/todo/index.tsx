@@ -31,7 +31,7 @@ export default function TodoList() {
 
 const TodoListWrapper = styled.div`
   min-height: calc(100vh - 60px);
-  background-color: #161725;
+  background-color: ${(props) => props.theme.colors.main_bg};
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -46,8 +46,8 @@ const PlusItem = styled.button`
   font-size: 40px;
   bottom: 30px;
   right: 30px;
-  color: orange;
-  border: 3px solid orange;
+  color: ${(props) => props.theme.colors.main_point_color};
+  border: 3px solid ${(props) => props.theme.colors.main_point_color};
   background-color: white;
   cursor: pointer;
 `;

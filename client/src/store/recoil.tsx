@@ -11,6 +11,12 @@ export const toastRecoilState = atom<{
   default: defaultToast,
 });
 
+export type ColorMode = "dark" | "purple" | "point_dark" | "light";
+
+export const colorModeRecoilState = atom<{ colorMode: ColorMode }>({
+  key: "colorModeState",
+  default: { colorMode: "dark" },
+
 export const isLoginRecoilState = atom<boolean>({
   key: "authState",
   default: false,
