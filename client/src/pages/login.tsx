@@ -74,8 +74,8 @@ export default function Login() {
           </label>
           <div>
             <input
+              type="password"
               placeholder="비밀번호"
-              type={isPasswordMode ? "password" : "text"}
               {...register("password")}
             ></input>
             <p>{passwordErrorMessage || ""}</p>

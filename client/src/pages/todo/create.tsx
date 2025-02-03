@@ -8,10 +8,11 @@ import { TODO_URL } from "@/constants/url";
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 
-import { useToast } from "@/hooks/commons";
+import { useAuth, useToast } from "@/hooks/commons";
 export default function Create(props: {
   data: { title: string; content: string; id: string };
 }) {
+  useAuth();
   const { data } = props;
   const isEdit = !!data;
   const { register, handleSubmit, formState, watch, setValue } =
@@ -75,6 +76,7 @@ export default function Create(props: {
       inputValue.content === data?.content && inputValue.title === data?.title;
     handleIsNotChanged(isNotChanged);
   }, [inputValue]);
+
   return (
     <CreateWrapper>
       <header>
@@ -186,6 +188,8 @@ export const CreateWrapper = styled.div`
     height: 400px;
     border: unset;
     padding: 10px;
+    resize: none;
+
     :focus {
       outline: none;
     }

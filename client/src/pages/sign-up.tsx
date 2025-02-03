@@ -73,6 +73,7 @@ export default function SignUp() {
           <label>PW 확인</label>
           <div>
             <input
+              type="password"
               placeholder="비밀번호확인"
               {...register("passwordCheck")}
               type={isPasswordMode ? "password" : "text"}

@@ -1,5 +1,6 @@
 import { TOKEN } from "@/constants/common";
-import { ColorMode, colorModeRecoilState } from "@/store/recoil";
+import {isLoginRecoilState, ColorMode, colorModeRecoilState } from "@/store/recoil";
+
 import styled from "@emotion/styled";
 import Cookies from "js-cookie";
 import _ from "lodash";
@@ -11,8 +12,8 @@ export default function LayoutHeader() {
   const router = useRouter();
   const [isLogin, handleIsLogin] = useState(false);
   const [isColorPaletteOpen, setColorPaletteOpen] = useState(false);
-
   const [colorModeState, setColorMode] = useRecoilState(colorModeRecoilState);
+  const [, handleRecoilLoginState] = useRecoilState(isLoginRecoilState);
 
   const onClickButton = (page: string) => () => {
     router.push(`${page}`);
@@ -33,6 +34,10 @@ export default function LayoutHeader() {
   useEffect(() => {
     !!token ? handleIsLogin(true) : handleIsLogin(false);
   });
+
+  useEffect(() => {
+    handleRecoilLoginState(isLogin);
+  }, [isLogin]);
 
   return (
     <Wrapper>
